@@ -1,6 +1,6 @@
 ﻿namespace DesktopBruteForcing
 {
-    partial class Form1
+    partial class FormularioInicio
     {
         /// <summary>
         /// Variable del diseñador requerida.
@@ -54,7 +54,7 @@
             this.dButtonExaminar.Name = "dButtonExaminar";
             this.dButtonExaminar.Size = new System.Drawing.Size(75, 22);
             this.dButtonExaminar.TabIndex = 2;
-            this.dButtonExaminar.Text = "Examinar";
+            this.dButtonExaminar.Text = "Search";
             this.dButtonExaminar.UseVisualStyleBackColor = true;
             this.dButtonExaminar.Click += new System.EventHandler(this.dButtonExaminar_Click);
             // 
@@ -64,7 +64,7 @@
             this.dButtonIniciar.Name = "dButtonIniciar";
             this.dButtonIniciar.Size = new System.Drawing.Size(126, 23);
             this.dButtonIniciar.TabIndex = 3;
-            this.dButtonIniciar.Text = "Iniciar ataque";
+            this.dButtonIniciar.Text = "Smash the form!";
             this.dButtonIniciar.UseVisualStyleBackColor = true;
             this.dButtonIniciar.Click += new System.EventHandler(this.dButtonIniciar_Click);
             // 
@@ -77,7 +77,7 @@
             this.groupBox1.Size = new System.Drawing.Size(543, 66);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Diccionario de palabras";
+            this.groupBox1.Text = "Path to dictionary file";
             // 
             // dTextBoxPulsacionesEntrePalabras
             // 
@@ -114,9 +114,9 @@
             this.groupBox2.Size = new System.Drawing.Size(542, 53);
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Text = "Keystrokes";
             // 
-            // Form1
+            // FormularioInicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -128,7 +128,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "FormularioInicio";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Desktop Brute Forcer";
             this.Activated += new System.EventHandler(this.Form1_Activated);

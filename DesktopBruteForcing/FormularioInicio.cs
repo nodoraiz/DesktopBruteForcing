@@ -12,8 +12,9 @@ using System.Runtime.InteropServices;
 
 namespace DesktopBruteForcing
 {
-    public partial class Form1 : Form
+    public partial class FormularioInicio : Form
     {
+        #region Imports
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         public static extern IntPtr GetForegroundWindow();
 
@@ -22,25 +23,28 @@ namespace DesktopBruteForcing
 
         [DllImport("user32", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int GetWindowText(IntPtr hWnd, [Out, MarshalAs(UnmanagedType.LPTStr)] StringBuilder lpString, int nMaxCount);
+        #endregion
 
-
+        #region Constantes
         private const string SEPARADOR_TIEMPO = "##";
         private const string PALABRA_RESERVADA = "$$";
         private const string FICHERO_LOG = "log.txt";
+        #endregion
 
-
-        private bool AtaqueEnMarcha { get; set; }
+        #region Propiedades
         private List<string> Diccionario { get; set; }
-
+        private bool AtaqueEnMarcha { get; set; }
         private string TituloVentanaAtaque { get; set; }
         private IntPtr? PunteroVentanaAplicacion { get; set; }
+        #endregion
 
-
-        public Form1()
+        #region Constructor
+        public FormularioInicio()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
         }
+        #endregion
 
         #region Eventos
         private void Form1_Activated(object sender, EventArgs e)
@@ -70,7 +74,7 @@ namespace DesktopBruteForcing
             {
                 this.PrepararDiccionarioAtaque();
 
-                MessageBox.Show("Una vez cerrada esta ventana tiene 3 segundos para establecer el foco sobre el campo en el que quiere realizar el ataque.",
+                MessageBox.Show("After you close this window you have 3 seconds to set the focus on the field you want to brute force",
                     "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 Thread.Sleep(3000);
@@ -113,7 +117,7 @@ namespace DesktopBruteForcing
 
                 foreach (string lStrPalabra in this.Diccionario)
                 {
-                    this.Registro("Probando la clave -" + lStrPalabra + "-");
+                    this.Registro("Trying the password -" + lStrPalabra + "-");
 
                     string lStrPulsacionFinal = this.dTextBoxPulsacionesEntrePalabras.Text.Replace(PALABRA_RESERVADA, lStrPalabra);
                     while (lStrPulsacionFinal.Length > 0)
@@ -131,7 +135,7 @@ namespace DesktopBruteForcing
                         }
                         else if ((lIntInicio != -1 && lIntFin == -1) || (lIntInicio == -1 && lIntFin != -1))
                         {
-                            MessageBox.Show("Proceso cancelado, sintáxis incorrecta");
+                            MessageBox.Show("Syntax error, process cancelled");
                             break;
                         }
 
@@ -150,15 +154,15 @@ namespace DesktopBruteForcing
 
                     if (this.TituloVentanaAtaque != this.ObtenerTextoDeTituloVentanaFoco())
                     {
-                        this.Registro("El proceso ha identificado como clave válida la palabra -" + lStrPalabra + "-");
-                        MessageBox.Show("El proceso ha identificado como clave válida la palabra -" + lStrPalabra + "-");
+                        this.Registro("The process has identified has a valid password the word -" + lStrPalabra + "-");
+                        MessageBox.Show("The process has identified has a valid password the word -" + lStrPalabra + "-");
                         break;
                     }
                 }
             }
             catch (Exception lObjExcepcion)
             {
-                this.Registro("Se ha capturado la excepcion: " + lObjExcepcion.ToString());
+                this.Registro("An exception was captured: " + lObjExcepcion.ToString());
             }
         }
 
@@ -173,7 +177,7 @@ namespace DesktopBruteForcing
 
             if (!File.Exists(this.dTextBoxRuta.Text))
             {
-                MessageBox.Show("No se encontró el fichero con el diccionario para realizar la fuerza bruta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("A dictionary file it's needed in order to brute force a form", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 lBlnResultado = false;
             }
 

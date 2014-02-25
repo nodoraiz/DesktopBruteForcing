@@ -1,0 +1,51 @@
+
+################################
+################################
+####
+####	DesktopBruteForcing
+####
+################################
+################################
+
+Author:	Miguel Ángel García
+Web:	www.nodoraiz.com
+
+
+
+
+
+################################
+#####	DESCRIPTION
+################################
+################################
+
+DesktopBruteForcing it's a Windows application developed in .NET with the idea of make a security research about brute forcing based on dictionary attack on desktop based applications.
+
+The application let you to define special behaviours as sleep to wait while a form validate the password, keystrokes (like ENTER, ALT...) to send with the password in order to skip error messages and open menu options to continue trying new passwords.
+
+
+################################
+#####	USAGE
+################################
+################################
+
+To attack with the app you have to:
+1. Set the path to a dictionary file
+2. Set the keystrokes you want to send iterating over the dictionary file with the next reserved words:
+ - $$	=> It's going to be replaced with the dictionary word
+ - ##X## => Where X it's a number, writting this you introduce a X miliseconds sleep. Recommended when the form take it's time to process some operations
+ - {YYYY}=> Where YYYY it's a special key like ENTER, ESC... More information about special keys can be found on next link: http://msdn.microsoft.com/es-es/library/system.windows.forms.sendkeys.send(v=vs.110).aspx
+3. Hit the "Smash the form!" button, accept the message and set the focus on the field you want to brute force.
+ 
+################################
+#####	Keystroke examples
+################################
+################################
+
+ $${ENTER}{ENTER}##100##
+ => Foreach word in the dictionary, writes the word, send two ENTER press and wait 100milisecons before continue with the next word.
+ 
+ 
+ %()AA##150##exce{DOWN}##150##{ENTER}$${ENTER}{ENTER}##100##
+ => Foreach word in the dictionary, press and leave the ALT key, send two A keys, wait 150 ms, write "exce", press DOWN key, wait 150ms, press ENTER and write the dictionary word, then press two ENTER and wait 100ms before start again.
+ 
