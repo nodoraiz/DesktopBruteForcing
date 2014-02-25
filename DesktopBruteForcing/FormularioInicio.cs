@@ -10,6 +10,31 @@ using System.IO;
 using System.Threading;
 using System.Runtime.InteropServices;
 
+
+/**
+    Copyright (C) 2014 Miguel Angel García
+  
+    This file is part of DesktopBruteForcing.
+
+    DesktopBruteForcing is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    DesktopBruteForcing is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with DesktopBruteForcing.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ * 
+ * 
+ * 
+ * Icon made by Freepik from Flaticon.com
+*/
+
 namespace DesktopBruteForcing
 {
     public partial class FormularioInicio : Form
@@ -67,15 +92,12 @@ namespace DesktopBruteForcing
 
         private void dButtonIniciar_Click(object sender, EventArgs e)
         {
-            if (this.AtaqueEnMarcha)
-            {
-            }
-            else if (this.ValidarFormulario())
+            if (!this.AtaqueEnMarcha && this.ValidarFormulario())
             {
                 this.PrepararDiccionarioAtaque();
 
                 MessageBox.Show("After you close this window you have 3 seconds to set the focus on the field you want to brute force",
-                    "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 Thread.Sleep(3000);
 
@@ -113,6 +135,8 @@ namespace DesktopBruteForcing
         {
             try
             {
+                string lStrMensaje = "";
+
                 this.TituloVentanaAtaque = this.ObtenerTextoDeTituloVentanaFoco();
 
                 foreach (string lStrPalabra in this.Diccionario)
@@ -122,9 +146,14 @@ namespace DesktopBruteForcing
                     string lStrPulsacionFinal = this.dTextBoxPulsacionesEntrePalabras.Text.Replace(PALABRA_RESERVADA, lStrPalabra);
                     while (lStrPulsacionFinal.Length > 0)
                     {
+                        if (this.PunteroVentanaAplicacion.Value == GetForegroundWindow())
+                        {
+                            lStrMensaje = "Process cancelled by the user";
+                            break;
+                        }
+
                         string lStrToken = lStrPulsacionFinal;
 
-                        //Buscamos un tiempo muerto
                         int lIntInicio = lStrPulsacionFinal.IndexOf(SEPARADOR_TIEMPO);
                         int lIntFin = lStrPulsacionFinal.IndexOf(SEPARADOR_TIEMPO, lIntInicio + 1);
 
@@ -135,7 +164,7 @@ namespace DesktopBruteForcing
                         }
                         else if ((lIntInicio != -1 && lIntFin == -1) || (lIntInicio == -1 && lIntFin != -1))
                         {
-                            MessageBox.Show("Syntax error, process cancelled");
+                            lStrMensaje = "Syntax error, process cancelled";
                             break;
                         }
 
@@ -154,15 +183,28 @@ namespace DesktopBruteForcing
 
                     if (this.TituloVentanaAtaque != this.ObtenerTextoDeTituloVentanaFoco())
                     {
-                        this.Registro("The process has identified has a valid password the word -" + lStrPalabra + "-");
-                        MessageBox.Show("The process has identified has a valid password the word -" + lStrPalabra + "-");
+                        lStrMensaje = "The process identifies the password -" + lStrPalabra + "-";
+                        this.Registro(lStrMensaje);
+                        break;
+                    }
+
+
+                    if (lStrMensaje != "")
+                    {
                         break;
                     }
                 }
+
+                if (lStrMensaje == "")
+                {
+                    lStrMensaje = "Password not found";
+                }
+
+                MessageBox.Show(lStrMensaje, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception lObjExcepcion)
             {
-                this.Registro("An exception was captured: " + lObjExcepcion.ToString());
+                this.Registro("An exception was caught: " + lObjExcepcion.ToString());
             }
         }
 

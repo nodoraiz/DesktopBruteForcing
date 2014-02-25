@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormularioInicio));
             this.dTextBoxRuta = new System.Windows.Forms.TextBox();
             this.dButtonExaminar = new System.Windows.Forms.Button();
             this.dButtonIniciar = new System.Windows.Forms.Button();
@@ -47,6 +48,7 @@
             this.dTextBoxRuta.Name = "dTextBoxRuta";
             this.dTextBoxRuta.Size = new System.Drawing.Size(449, 20);
             this.dTextBoxRuta.TabIndex = 0;
+            this.dTextBoxRuta.Text = "./Top100pwd.txt";
             // 
             // dButtonExaminar
             // 
@@ -126,11 +128,12 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dButtonIniciar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormularioInicio";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Desktop Brute Forcer";
+            this.Text = "DeBF";
             this.Activated += new System.EventHandler(this.Form1_Activated);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
